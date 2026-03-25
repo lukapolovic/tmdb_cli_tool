@@ -11,12 +11,7 @@ public class tmdb_app {
         try {
             CommandLine cmd = parse.parse(options, args);
             if(cmd.hasOption("h")) {
-                System.out.println(
-                        "-----------------------------------------------\n" +
-                        "This tool uses TMDB API to fetch movie information and display it in the terminal\n" +
-                        "-----------------------------------------------\n" +
-                        "Example usages:\n" +
-                        "tmdb_app -type \"playing\"\n" + "tmdb_app -type \"popular\"\n" + "tmdb_app -type \"top\"\n" + "tmdb_app -type \"upcoming\"");
+                tmdb_app.printHelp();
             } else if(cmd.hasOption("t")) {
                 String choice = cmd.getOptionValue("t");
 
@@ -47,5 +42,18 @@ public class tmdb_app {
         } catch (ParseException e) {
             System.out.println(e);
         }
+    }
+
+    public static void printHelp() {
+        System.out.println(
+                "-----------------------------------------------\n" +
+                "This tool uses TMDB API to fetch movie information and display it in the terminal\n" +
+                "-----------------------------------------------\n" +
+                "Example usages:\n" +
+                "tmdb_app -type \"playing\"\n" +
+                "tmdb_app -type \"popular\"\n" +
+                "tmdb_app -type \"top\"\n" +
+                "tmdb_app -type \"upcoming\""
+        );
     }
 }
