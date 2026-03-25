@@ -5,7 +5,7 @@ public class tmdb_app {
         Options options = new Options();
 
         options.addOption("h", "help", false, "show help");
-        options.addOption("t", "type", false, "Type selected");
+        options.addOption("t", "type", true, "Type selected");
 
         CommandLineParser parse = new DefaultParser();
         try {
@@ -17,8 +17,30 @@ public class tmdb_app {
                         "-----------------------------------------------\n" +
                         "Example usages:\n" +
                         "tmdb_app -type \"playing\"\n" + "tmdb_app -type \"popular\"\n" + "tmdb_app -type \"top\"\n" + "tmdb_app -type \"upcoming\"");
-            } else if(cmd.hasOption("type")) {
-                System.out.println("You selected type");
+            } else if(cmd.hasOption("t")) {
+                String choice = cmd.getOptionValue("t");
+
+                switch (choice) {
+                    case "playing":
+                        System.out.println("PLAYING");
+                        break;
+
+                    case "popular":
+                        System.out.println("POPULAR");
+                        break;
+
+                    case "top":
+                        System.out.println("TOP");
+                        break;
+
+                    case "upcoming":
+                        System.out.println("UPCOMING");
+                        break;
+
+                    default:
+                        System.out.println("You've entered a non-supported type value");
+                        break;
+                }
             } else {
                 System.out.println("Either use -h or -t flags");
             }
