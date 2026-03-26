@@ -17,6 +17,8 @@ public class tmdb_app {
 
         try {
             String choice = cliMan.checkChoice(cmd);
+            apiHandler api = new apiHandler();
+            api.sendHttpRequest(choice);
         } catch (IllegalArgumentException e) {
             System.err.println(e);
         }
