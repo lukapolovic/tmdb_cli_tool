@@ -28,7 +28,7 @@ public class cliManager {
     public String checkChoice(CommandLine arg) throws IllegalArgumentException{
         String choice = arg.getOptionValue("t");
         List<String> acceptedChoices = new ArrayList<>(4);
-        acceptedChoices.addAll(Arrays.asList("playing", "popular", "top", "upcoming"));
+        acceptedChoices.addAll(Arrays.asList("now_playing", "popular", "top_rated", "upcoming"));
 
         if(!acceptedChoices.contains(choice)) {
            throw new IllegalArgumentException("Wrong type argument. Please refer to -h or --help");
@@ -43,9 +43,9 @@ public class cliManager {
                         "This tool uses TMDB API to fetch movie information and display it in the terminal\n" +
                         "-----------------------------------------------\n" +
                         "Example usages:\n" +
-                        "tmdb_app -type \"playing\"\n" +
+                        "tmdb_app -type \"now_playing\"\n" +
                         "tmdb_app -type \"popular\"\n" +
-                        "tmdb_app -type \"top\"\n" +
+                        "tmdb_app -type \"top_rated\"\n" +
                         "tmdb_app -type \"upcoming\""
         );
     }
