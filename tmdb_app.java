@@ -15,32 +15,10 @@ public class tmdb_app {
             System.exit(0);
         }
 
-        tmdb_app.getChoice(cmd);
-    }
-
-    public static void getChoice(CommandLine arg) {
-        String choice = arg.getOptionValue("t");
-
-        switch (choice) {
-            case "playing":
-                System.out.println("PLAYING");
-                break;
-
-            case "popular":
-                System.out.println("POPULAR");
-                break;
-
-            case "top":
-                System.out.println("TOP");
-                break;
-
-            case "upcoming":
-                System.out.println("UPCOMING");
-                break;
-
-            default:
-                System.out.println("You've entered a non-supported type value");
-                break;
+        try {
+            String choice = cliMan.checkChoice(cmd);
+        } catch (IllegalArgumentException e) {
+            System.err.println(e);
         }
     }
 }

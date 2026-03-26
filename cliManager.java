@@ -1,5 +1,9 @@
 import org.apache.commons.cli.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class cliManager {
     public CommandLine parseCli(Options options, String[] args) {
         CommandLineParser parse = new DefaultParser();
@@ -19,6 +23,18 @@ public class cliManager {
             System.err.println(e);
             return null;
         }
+    }
+
+    public String checkChoice(CommandLine arg) throws IllegalArgumentException{
+        String choice = arg.getOptionValue("t");
+        List<String> acceptedChoices = new ArrayList<>(4);
+        acceptedChoices.addAll(Arrays.asList("playing", "popular", "top", "upcoming"));
+
+        if(!acceptedChoices.contains(choice)) {
+           throw new IllegalArgumentException("Wrong type argument. Please refer to -h or --help");
+        }
+
+        return choice;
     }
 
     public static void printHelp() {
