@@ -1,4 +1,5 @@
 import org.apache.commons.cli.*;
+import org.json.JSONObject;
 
 public class tmdb_app {
     public static void main(String[] args) {
@@ -18,7 +19,9 @@ public class tmdb_app {
         try {
             String choice = cliMan.checkChoice(cmd);
             apiHandler api = new apiHandler();
-            api.sendHttpRequest(choice);
+
+            String apiResponse = api.sendHttpRequest(choice);
+            System.out.println(apiResponse);
         } catch (IllegalArgumentException e) {
             System.err.println(e);
         }
