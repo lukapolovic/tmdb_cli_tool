@@ -1,5 +1,5 @@
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.commons.cli.*;
-import org.json.JSONObject;
 
 public class tmdb_app {
     public static void main(String[] args) {
@@ -21,9 +21,14 @@ public class tmdb_app {
             apiHandler api = new apiHandler();
 
             String apiResponse = api.sendHttpRequest(choice);
-            System.out.println(apiResponse);
+
+            jsonHandler jHandler = new jsonHandler();
+            jHandler.printResults(apiResponse);
+
         } catch (IllegalArgumentException e) {
             System.err.println(e);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
         }
     }
 }
