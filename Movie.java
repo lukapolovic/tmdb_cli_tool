@@ -1,4 +1,4 @@
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Movie {
     long id;
@@ -7,11 +7,11 @@ public class Movie {
     String title;
     String overview;
     double popularity;
-    Date releaseDate;
+    LocalDate releaseDate;
     int rating;
     int ratingVotes;
 
-    public Movie(int ratingVotes, int rating, Date releaseDate,
+    public Movie(int ratingVotes, int rating, LocalDate releaseDate,
                  double popularity, String overview, String title,
                  String originalLanguage, boolean isAdultRated, long id) {
         this.ratingVotes = ratingVotes;
@@ -73,11 +73,11 @@ public class Movie {
         this.popularity = popularity;
     }
 
-    public Date getReleaseDate() {
+    public LocalDate getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(Date releaseDate) {
+    public void setReleaseDate(LocalDate releaseDate) {
         this.releaseDate = releaseDate;
     }
 
@@ -99,6 +99,6 @@ public class Movie {
 
     @Override
     public String toString() {
-        return "Movie{}";
+        return this.title;
     }
 }

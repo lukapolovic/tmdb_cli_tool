@@ -1,6 +1,8 @@
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.commons.cli.*;
 
+import java.util.ArrayList;
+
 public class tmdb_app {
     public static void main(String[] args) {
         Options options = new Options();
@@ -23,7 +25,9 @@ public class tmdb_app {
             String apiResponse = api.sendHttpRequest(choice);
 
             jsonHandler jHandler = new jsonHandler();
-            jHandler.printResults(apiResponse);
+            ArrayList<Movie> movies = jHandler.returnMovies(apiResponse);
+
+            movies.forEach(movie -> System.out.println(movie.toString()));
 
         } catch (IllegalArgumentException e) {
             System.err.println(e);
