@@ -151,3 +151,14 @@ John Wick: Chapter 4 (2023-03-22) - Rating: 8.0
 * Only basic output formatting is implemented (no pagination yet)
 
 ---
+
+## 🔮 Future Improvements
+
+* [ ] Convert JSON to Java objects (DTOs)
+* [ ] Limit results (e.g. top 10)
+* [ ] Pretty table formatting
+* [ ] Filter by rating / year
+* [ ] Cache API responses
+* [ ] Add pagination support
+
+---
