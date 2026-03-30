@@ -154,8 +154,8 @@ John Wick: Chapter 4 (2023-03-22) - Rating: 8.0
 
 ## 🔮 Future Improvements
 
-* [ ] Convert JSON to Java objects (DTOs)
-* [ ] Limit results (e.g. top 10)
+* [X] Convert JSON to Java objects (DTOs)
+* [X] Limit results (e.g. top 10)
 * [ ] Pretty table formatting
 * [ ] Filter by rating / year
 * [ ] Cache API responses
