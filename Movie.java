@@ -8,10 +8,10 @@ public class Movie {
     String overview;
     double popularity;
     LocalDate releaseDate;
-    int rating;
+    double rating;
     int ratingVotes;
 
-    public Movie(int ratingVotes, int rating, LocalDate releaseDate,
+    public Movie(int ratingVotes, double rating, LocalDate releaseDate,
                  double popularity, String overview, String title,
                  String originalLanguage, boolean isAdultRated, long id) {
         this.ratingVotes = ratingVotes;
@@ -81,7 +81,7 @@ public class Movie {
         this.releaseDate = releaseDate;
     }
 
-    public int getRating() {
+    public double getRating() {
         return rating;
     }
 

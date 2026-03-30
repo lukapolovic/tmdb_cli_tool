@@ -27,7 +27,7 @@ public class tmdb_app {
             jsonHandler jHandler = new jsonHandler();
             ArrayList<Movie> movies = jHandler.returnMovies(apiResponse);
 
-            movies.forEach(movie -> System.out.println(movie.toString()));
+            cliMan.printTableView(movies);
 
         } catch (IllegalArgumentException e) {
             System.err.println(e);

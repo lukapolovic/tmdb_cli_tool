@@ -31,7 +31,7 @@ public class jsonHandler {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate releaseDate = LocalDate.parse(jNode.get("release_date").asText(), formatter);
 
-        int rating = jNode.get("vote_average").asInt();
+        double rating = jNode.get("vote_average").asInt();
         int ratingVotes = jNode.get("vote_count").asInt();
 
         Movie movie = new Movie(ratingVotes, rating, releaseDate, popularity, overview, title, originalLanguage, isAdultRated, id);

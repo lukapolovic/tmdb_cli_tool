@@ -5,6 +5,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class cliManager {
+    public void printTableView(ArrayList<Movie> listOfMovies) {
+        listOfMovies.forEach(movie -> System.out.println(movie.toString()));
+    }
+
     public CommandLine parseCli(Options options, String[] args) {
         CommandLineParser parse = new DefaultParser();
         try {
@@ -48,5 +52,9 @@ public class cliManager {
                         "tmdb_app -type \"top_rated\"\n" +
                         "tmdb_app -type \"upcoming\""
         );
+    }
+
+    private String trim(String text, int max) {
+        return text.length() > max ? text.substring(0, max) + "..." : text;
     }
 }
