@@ -1,12 +1,47 @@
+import com.googlecode.lanterna.TextColor;
 import org.apache.commons.cli.*;
+import com.googlecode.lanterna.terminal.*;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class cliManager {
     public void printTableView(ArrayList<Movie> listOfMovies) {
-        listOfMovies.forEach(movie -> System.out.println(movie.toString()));
+        try {
+            Terminal terminal = new DefaultTerminalFactory(System.out, System.in, StandardCharsets.UTF_8).createTerminal();
+            AtomicInteger y = new AtomicInteger(5);
+
+            terminal.enterPrivateMode();
+
+            terminal.setForegroundColor(TextColor.ANSI.WHITE);
+            terminal.setBackgroundColor(TextColor.ANSI.BLUE);
+
+            for(Movie movie : listOfMovies) {
+                terminal.setCursorPosition(10, y.get());
+
+                String text = movie.toString();
+                for (char c : text.toCharArray()) {
+                    terminal.putCharacter(c);
+                }
+
+                y.addAndGet(2);
+            }
+
+            terminal.flush();
+
+            Thread.sleep(10000);
+
+            terminal.exitPrivateMode();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public CommandLine parseCli(Options options, String[] args) {
