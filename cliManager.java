@@ -1,3 +1,4 @@
+import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TextColor;
 import org.apache.commons.cli.*;
 import com.googlecode.lanterna.terminal.*;
@@ -13,15 +14,21 @@ public class cliManager {
     public void printTableView(ArrayList<Movie> listOfMovies) {
         try {
             Terminal terminal = new DefaultTerminalFactory(System.out, System.in, StandardCharsets.UTF_8).createTerminal();
-            AtomicInteger y = new AtomicInteger(5);
+            AtomicInteger y = new AtomicInteger(2);
 
             terminal.enterPrivateMode();
-
             terminal.setForegroundColor(TextColor.ANSI.WHITE);
-            terminal.setBackgroundColor(TextColor.ANSI.BLUE);
+
+            terminal.enableSGR(SGR.BOLD);
+            String titleOfTerm = "The results of your search (navigate with arrow keys)";
+            terminal.setCursorPosition(0, 0);
+            for (char c : titleOfTerm.toCharArray()) {
+                terminal.putCharacter(c);
+            }
+            terminal.disableSGR(SGR.BOLD);
 
             for(Movie movie : listOfMovies) {
-                terminal.setCursorPosition(10, y.get());
+                terminal.setCursorPosition(2, y.get());
 
                 String text = movie.toString();
                 for (char c : text.toCharArray()) {
