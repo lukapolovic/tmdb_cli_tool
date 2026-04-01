@@ -1,5 +1,10 @@
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.gui2.BasicWindow;
+import com.googlecode.lanterna.gui2.MultiWindowTextGUI;
+import com.googlecode.lanterna.gui2.WindowBasedTextGUI;
+import com.googlecode.lanterna.screen.Screen;
+import com.googlecode.lanterna.screen.TerminalScreen;
 import org.apache.commons.cli.*;
 import com.googlecode.lanterna.terminal.*;
 
@@ -14,40 +19,17 @@ public class cliManager {
     public void printTableView(ArrayList<Movie> listOfMovies) {
         try {
             Terminal terminal = new DefaultTerminalFactory(System.out, System.in, StandardCharsets.UTF_8).createTerminal();
-            AtomicInteger y = new AtomicInteger(2);
+            Screen screen = new TerminalScreen(terminal);
+            WindowBasedTextGUI gui = new MultiWindowTextGUI(screen);
+            MyWindow myWindow = new MyWindow(gui);
+            gui.addWindow(myWindow);
+            screen.startScreen();
 
-            terminal.enterPrivateMode();
-            terminal.setForegroundColor(TextColor.ANSI.WHITE);
+            myWindow.waitUntilClosed();
 
-            terminal.enableSGR(SGR.BOLD);
-            String titleOfTerm = "The results of your search (navigate with arrow keys)";
-            terminal.setCursorPosition(0, 0);
-            for (char c : titleOfTerm.toCharArray()) {
-                terminal.putCharacter(c);
-            }
-            terminal.disableSGR(SGR.BOLD);
-
-            for(Movie movie : listOfMovies) {
-                terminal.setCursorPosition(2, y.get());
-
-                String text = movie.toString();
-                for (char c : text.toCharArray()) {
-                    terminal.putCharacter(c);
-                }
-
-                y.addAndGet(2);
-            }
-
-            terminal.flush();
-
-            Thread.sleep(10000);
-
-            terminal.exitPrivateMode();
-
+            screen.stopScreen();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
         }
     }
 
