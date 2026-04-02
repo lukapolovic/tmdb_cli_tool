@@ -1,9 +1,15 @@
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialog;
+
+import java.util.ArrayList;
 
 public class MyWindow extends BasicWindow {
     public MyWindow(WindowBasedTextGUI gui) {
         super("TMDB CLI Tool");
+
+        apiHandler apiHand = new apiHandler();
+        jsonHandler jsonHand = new jsonHandler();
 
         Panel panel = new Panel();
         panel.setLayoutManager(new LinearLayout(Direction.VERTICAL));
@@ -11,11 +17,31 @@ public class MyWindow extends BasicWindow {
         ActionListBox menu = new ActionListBox();
 
         menu.addItem("Now Playing Movies", () -> {
-            MessageDialog.showMessageDialog(
-                    gui,
-                    "Now Playing Movies",
-                    "Here are the top 10 movies that are being screened right now!"
-            );
+            BasicWindow newWindow = new BasicWindow("Now Playing Movies");
+            Panel newPanel = new Panel();
+            panel.setLayoutManager(new LinearLayout(Direction.VERTICAL));
+            ActionListBox movieMenu = new ActionListBox();
+
+            try {
+                ArrayList<Movie> listOfMovies = jsonHand.returnMovies(apiHand.sendHttpRequest("now_playing"));
+                for(Movie movie : listOfMovies) {
+                    movieMenu.addItem(movie.getTitle(), () -> {
+                        MessageDialog.showMessageDialog(
+                                gui,
+                                movie.getTitle(),
+                                movie.getOverview()
+                        );
+                    });
+                }
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
+
+            movieMenu.addItem("Exit", newWindow::close);
+
+            newPanel.addComponent(movieMenu);
+            newWindow.setComponent(newPanel);
+            gui.addWindowAndWait(newWindow);
         });
 
         menu.addItem("Popular Movies", () -> {

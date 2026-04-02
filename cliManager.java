@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class cliManager {
-    public void printTableView(ArrayList<Movie> listOfMovies) {
+    public void startGui() {
         try {
             Terminal terminal = new DefaultTerminalFactory(System.out, System.in, StandardCharsets.UTF_8).createTerminal();
             Screen screen = new TerminalScreen(terminal);
