@@ -4,35 +4,28 @@ import java.io.InputStreamReader;
 import java.net.*;
 
 public class apiHandler {
-    public String sendHttpRequest(String endpoint) {
+    public String sendHttpRequest(String endpoint) throws APIException {
         String apiURL = "https://api.themoviedb.org/3/movie/";
-        String apiKey = "";
-        StringBuilder response = new StringBuilder();
+        String apiKey = System.getenv("API_KEY");
+        if(apiKey == null) {
+            throw new APIKeyMissingException("API_KEY value is null!", null);
+        }
+        StringBuilder response;
 
         try {
-            apiKey = System.getenv("API_KEY");
-            if(apiKey == null) {
-                throw new APIKeyMissingException("API_KEY value is null!");
-            }
-
             String fullURL = apiURL + endpoint;
             response = apiHandler.getResponse(fullURL, apiKey);
         } catch(MalformedURLException e) {
-            System.err.println("API endpoint is malformed.");
-        } catch (APIKeyMissingException | IOException e) {
-            System.err.println(e);
+            throw new APIException("The API URL is Malformed", e);
+        } catch (IOException e) {
+            throw new APIException("API request failed", e);
         }
-
+        
         return response.toString();
     }
 
-    public static StringBuilder getResponse(String endpoint, String apiKey) throws IOException{
-        URL url = new URL(endpoint);
-        HttpURLConnection con = (HttpURLConnection) url.openConnection();
-        con.setRequestMethod("GET");
-
-        con.setRequestProperty("Authorization", "Bearer " + apiKey);
-        con.setRequestProperty("accept", "application/json");
+    public static StringBuilder getResponse(String endpoint, String apiKey) throws IOException, ApiConnectionException {
+        HttpURLConnection con = getHttpURLConnection(endpoint, apiKey);
 
         int status = con.getResponseCode();
 
@@ -40,7 +33,7 @@ public class apiHandler {
         if (status >=200 && status < 300) {
             reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
         } else {
-            reader = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+            throw new ApiConnectionException("HTTP error:" + status, null);
         }
 
         String line;
@@ -54,9 +47,41 @@ public class apiHandler {
         return response;
     }
 
-    class APIKeyMissingException extends Exception {
-        public APIKeyMissingException(String message) {
-            super(message);
+    private static HttpURLConnection getHttpURLConnection(String endpoint, String apiKey) throws MalformedURLException, ApiConnectionException {
+        URL url = new URL(endpoint);
+        HttpURLConnection con = null;
+
+        try {
+            con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("GET");
+            con.setRequestProperty("Authorization", "Bearer " + apiKey);
+            con.setRequestProperty("accept", "application/json");
+        } catch(IOException e) {
+            throw new ApiConnectionException("Failed to reach TMDB API", e);
+        } finally {
+            if(con != null) {
+                con.disconnect();
+            }
+        }
+        return con;
+    }
+
+    static class APIException extends Exception {
+        public APIException(String message, Exception cause) {
+            super(message, cause);
+        }
+    }
+    
+    static class APIKeyMissingException extends APIException {
+        public APIKeyMissingException(String message, Exception cause) {
+
+            super(message, cause);
+        }
+    }
+
+    static class ApiConnectionException extends APIException {
+        public ApiConnectionException(String message, Exception cause) {
+            super(message, cause);
         }
     }
 }

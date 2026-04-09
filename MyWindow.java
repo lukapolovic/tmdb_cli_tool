@@ -63,7 +63,7 @@ public class MyWindow extends BasicWindow {
                     createMovieInfoGUI(gui, movie);
                 });
             }
-        } catch (JsonProcessingException e) {
+        } catch (JsonProcessingException | apiHandler.APIException e) {
             throw new RuntimeException(e);
         }
     }
@@ -109,7 +109,7 @@ public class MyWindow extends BasicWindow {
         String wrappedOverview = wrapText(movie.getOverview(), 50);
 
         TextBox overviewBox = new TextBox(
-                new TerminalSize(50, 10),
+                new TerminalSize(50, 15),
                 wrappedOverview
         );
 

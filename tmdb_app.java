@@ -31,7 +31,7 @@ public class tmdb_app {
 
         } catch (IllegalArgumentException e) {
             System.err.println(e);
-        } catch (JsonProcessingException e) {
+        } catch (JsonProcessingException | apiHandler.APIException e) {
             throw new RuntimeException(e);
         }
     }
