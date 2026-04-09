@@ -1,3 +1,5 @@
+package com.polovski.tmdbcli;
+
 import com.googlecode.lanterna.gui2.MultiWindowTextGUI;
 import com.googlecode.lanterna.gui2.WindowBasedTextGUI;
 import com.googlecode.lanterna.screen.Screen;
@@ -5,7 +7,6 @@ import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 import org.apache.commons.cli.*;
-import src.com.polovski.tmdbcli.*;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

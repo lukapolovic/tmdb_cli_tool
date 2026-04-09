@@ -1,4 +1,4 @@
-package src.com.polovski.tmdbcli;
+package com.polovski.tmdbcli;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;

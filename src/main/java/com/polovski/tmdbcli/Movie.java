@@ -1,4 +1,4 @@
-package src.com.polovski.tmdbcli;
+package com.polovski.tmdbcli;
 
 import java.time.LocalDate;
 
