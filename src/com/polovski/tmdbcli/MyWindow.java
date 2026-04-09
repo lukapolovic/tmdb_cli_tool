@@ -1,3 +1,5 @@
+package src.com.polovski.tmdbcli;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.*;
@@ -53,8 +55,8 @@ public class MyWindow extends BasicWindow {
     }
 
     public static void createMenuMovieItems(WindowBasedTextGUI gui, ActionListBox movieMenu, String endpoint) {
-        apiHandler apiHand = new apiHandler();
-        jsonHandler jsonHand = new jsonHandler();
+        ApiHandler apiHand = new ApiHandler();
+        JsonHandler jsonHand = new JsonHandler();
 
         try {
             ArrayList<Movie> listOfMovies = jsonHand.returnMovies(apiHand.sendHttpRequest(endpoint));
@@ -63,7 +65,7 @@ public class MyWindow extends BasicWindow {
                     createMovieInfoGUI(gui, movie);
                 });
             }
-        } catch (JsonProcessingException | apiHandler.APIException e) {
+        } catch (JsonProcessingException | ApiHandler.APIException e) {
             throw new RuntimeException(e);
         }
     }
@@ -109,7 +111,7 @@ public class MyWindow extends BasicWindow {
         String wrappedOverview = wrapText(movie.getOverview(), 50);
 
         TextBox overviewBox = new TextBox(
-                new TerminalSize(50, 15),
+                new TerminalSize(50, 10),
                 wrappedOverview
         );
 

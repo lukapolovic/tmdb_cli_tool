@@ -1,6 +1,5 @@
-import com.googlecode.lanterna.SGR;
-import com.googlecode.lanterna.TextColor;
-import com.googlecode.lanterna.gui2.BasicWindow;
+package src.com.polovski.tmdbcli;
+
 import com.googlecode.lanterna.gui2.MultiWindowTextGUI;
 import com.googlecode.lanterna.gui2.WindowBasedTextGUI;
 import com.googlecode.lanterna.screen.Screen;
@@ -13,9 +12,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
-public class cliManager {
+public class CliManager {
     public void startGui() {
         try {
             Terminal terminal = new DefaultTerminalFactory(System.out, System.in, StandardCharsets.UTF_8).createTerminal();
@@ -39,7 +37,7 @@ public class cliManager {
             CommandLine cmdLine = parse.parse(options, args);
 
             if(cmdLine.hasOption("h")) {
-                cliManager.printHelp();
+                CliManager.printHelp();
                 return null;
             } else if(cmdLine.hasOption("t")) {
                 return cmdLine;

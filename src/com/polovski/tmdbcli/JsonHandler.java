@@ -1,3 +1,5 @@
+package src.com.polovski.tmdbcli;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -6,14 +8,14 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class jsonHandler {
+public class JsonHandler {
     public ArrayList<Movie> returnMovies(String input) throws JsonProcessingException {
-        JsonNode movies = jsonHandler.extractResults(input);
+        JsonNode movies = JsonHandler.extractResults(input);
         ArrayList<Movie> listOfMovies = new ArrayList<>(10);
 
         for(int i = 0; i < 10; i++) {
             JsonNode jNode = movies.get(i);
-            Movie newMovie = jsonHandler.extractAndCreateMovie(jNode);
+            Movie newMovie = JsonHandler.extractAndCreateMovie(jNode);
             listOfMovies.add(newMovie);
         }
 

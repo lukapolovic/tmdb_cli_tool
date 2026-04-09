@@ -1,9 +1,11 @@
+package src.com.polovski.tmdbcli;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.*;
 
-public class apiHandler {
+public class ApiHandler {
     public String sendHttpRequest(String endpoint) throws APIException {
         String apiURL = "https://api.themoviedb.org/3/movie/";
         String apiKey = System.getenv("API_KEY");
@@ -14,7 +16,7 @@ public class apiHandler {
 
         try {
             String fullURL = apiURL + endpoint;
-            response = apiHandler.getResponse(fullURL, apiKey);
+            response = ApiHandler.getResponse(fullURL, apiKey);
         } catch(MalformedURLException e) {
             throw new APIException("The API URL is Malformed", e);
         } catch (IOException e) {
@@ -66,7 +68,7 @@ public class apiHandler {
         return con;
     }
 
-    static class APIException extends Exception {
+    public static class APIException extends Exception {
         public APIException(String message, Exception cause) {
             super(message, cause);
         }

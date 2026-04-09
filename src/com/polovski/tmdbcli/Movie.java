@@ -1,3 +1,5 @@
+package src.com.polovski.tmdbcli;
+
 import java.time.LocalDate;
 
 public class Movie {

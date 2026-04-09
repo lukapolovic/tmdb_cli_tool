@@ -40,9 +40,9 @@ This project was built as a side project to practice: https://roadmap.sh/project
 ```
 .
 ├── tmdb_app.java        # Main entry point
-├── cliManager.java      # CLI parsing and validation
-├── apiHandler.java      # HTTP requests + API communication
-├── jsonHandler.java     # JSON parsing and output formatting
+├── CliManager.java      # CLI parsing and validation
+├── ApiHandler.java      # HTTP requests + API communication
+├── JsonHandler.java     # JSON parsing and output formatting
 ```
 
 ---
@@ -110,19 +110,19 @@ java tmdb_app -t upcoming
 
 ## 🧠 How It Works
 
-### 1. CLI Parsing (`cliManager`)
+### 1. CLI Parsing (`CliManager`)
 
 * Parses flags using Apache Commons CLI
 * Validates allowed categories
 
-### 2. API Request (`apiHandler`)
+### 2. API Request (`ApiHandler`)
 
 * Builds endpoint URL
 * Sends HTTP GET request
 * Adds **Bearer token authentication**
 * Returns raw JSON response
 
-### 3. JSON Processing (`jsonHandler`)
+### 3. JSON Processing (`JsonHandler`)
 
 * Extracts `results` array
 * Iterates through movies
